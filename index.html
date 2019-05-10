@@ -1,0 +1,680 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+      <meta charset="utf-8">
+
+      <title>The Important Factors</title>
+      <meta name="description" content="Calendar">
+      <meta name="author" content="Lluís Montabes">
+
+      <link rel="stylesheet" href="styles/style.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="template" id="new-event-form">
+        <form>
+            <div class="time-title">
+                <input type="time" class="time" id="time-input"/>
+                <input type="text" class="title" placeholder="Title of your event" spellcheck="false" />
+            </div>
+            <input type="text" class="comments" placeholder="Enter additional comments (optional)" spellcheck="false"/>
+        </form>
+    </div>
+
+    <div class="template" id="register-form">
+
+        <div style="font-size: 24px; padding-bottom: 1.5em">
+            Registrate ahora para apoyar las causas que te importan.
+        </div>
+
+        <form>
+            <div class="time-title">
+                <input type="email" class="text-input" placeholder="Direccion de correo electrónico" id="email-input"/><br />
+                <input type="password" class="text-input" placeholder="Contraseña" id="password-input"/>
+            </div>
+        </form>
+    </div>
+
+    <div class="curtain" id="modal-curtain" onclick="hideMessage()">
+        <div class="flying">
+            <div class="modal centered" id="modal">
+                <div class="section title" id="modal-title">
+                    Caution
+                </div>
+                <div class="section message" id="modal-message">
+                    Are you sure you want to permanently remove this event?
+                </div>
+                <div class="section buttons">
+                    <div class="button confirm" id="positive-button">
+                        Remove event
+                    </div>
+                    <div class="button cancel" id="negative-button">
+                        Cancel
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bubble" id="time-picker">
+        <div class="time-picker">
+            <div class="column left" id="hour-column">
+                <div class="spacer">
+
+                </div>
+                <div class="option" data-value="00">0</div>
+                <div class="option" data-value="01">1</div>
+                <div class="option" data-value="02">2</div>
+                <div class="option" data-value="03">3</div>
+                <div class="option" data-value="04">4</div>
+                <div class="option" data-value="05">5</div>
+                <div class="option" data-value="06">6</div>
+                <div class="option" data-value="07">7</div>
+                <div class="option" data-value="08">8</div>
+                <div class="option" data-value="09">9</div>
+                <div class="option" data-value="10">10</div>
+                <div class="option" data-value="11">11</div>
+                <div class="option" data-value="12">12</div>
+                <div class="option" data-value="13">13</div>
+                <div class="option" data-value="14">14</div>
+                <div class="option" data-value="15">15</div>
+                <div class="option" data-value="16">16</div>
+                <div class="option" data-value="17">17</div>
+                <div class="option" data-value="18">18</div>
+                <div class="option" data-value="19">19</div>
+                <div class="option" data-value="20">20</div>
+                <div class="option" data-value="21">21</div>
+                <div class="option" data-value="22">22</div>
+                <div class="option" data-value="23">23</div>
+                <div class="spacer">
+
+                </div>
+            </div><div class="column" id="minute-column">
+                <div class="spacer">
+
+                </div>
+                <div class="option" data-value="00">00</div>
+                <div class="option" data-value="05">05</div>
+                <div class="option" data-value="10">10</div>
+                <div class="option" data-value="15">15</div>
+                <div class="option" data-value="20">20</div>
+                <div class="option" data-value="25">25</div>
+                <div class="option" data-value="30">30</div>
+                <div class="option" data-value="35">35</div>
+                <div class="option" data-value="40">40</div>
+                <div class="option" data-value="45">45</div>
+                <div class="option" data-value="50">50</div>
+                <div class="option" data-value="55">55</div>
+                <div class="spacer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="title">
+            <div class="avatar"></div>
+            <div class="calendar-info">
+                <div class="page-title">
+                    The<br />Important<br /><b>Factors</b>
+                </div>
+            </div>
+            <div class="right">
+                <div class="register-login">
+                    <span class="clickable-text">Inicia sesión</span> o <span class="clickable-text" onclick="promptRegister()">Regístrate</span>
+                </div>
+                <div class="ui button create-petition" onclick="promptRegister()">
+                    Crear una petición
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="entries" id="entries-view">
+
+        <div class="area">
+
+            <div class="entry" id="entry1">
+
+                <div class="event-image" style="background-image:url('https://assets.change.org/photos/1/vw/bj/PQVWBJuGyCdgjMt-800x450-noPad.jpg?1526957771')">
+
+                </div>
+
+                <div class="event-wrap">
+                    <div class="event" id="event1">
+                        <div class="buttons down">
+                            <i class="far fa-edit"></i>
+                        </div>
+                        <div class="info">
+                            No más muertes impunes en la carretera #porunaleyjusta
+                            <div class="comments">
+                                Queremos impulsar esta petición, para que se modifique la nueva reforma legal y los artículos 142 del Código Penal que regula el homicidio por imprudencia.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="entry" id="entry1">
+
+                <div class="event-image" style="background-image:url('https://assets.change.org/photos/3/bi/of/efBioFIOLryfIhg-800x450-noPad.jpg?1556278597')">
+
+                </div>
+
+                <div class="event-wrap">
+                    <div class="event" id="event1">
+                        <div class="buttons down">
+                            <i class="far fa-edit"></i>
+                        </div>
+                        <div class="info">
+                            Por un sistema electoral justo #1persona1voto
+                            <div class="comments">
+                                Pedimos que las Cortes aborden de forma urgente la reforma de la Ley Electoral para que todos los votos valgan lo mismo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="entry" id="entry1">
+
+                <div class="event-image" style="background-image:url('https://assets.change.org/photos/1/gp/nx/hMGpNxbvGvvyJlu-800x450-noPad.jpg?1553867579')">
+
+                </div>
+
+                <div class="event-wrap">
+                    <div class="event" id="event1">
+                        <div class="buttons down">
+                            <i class="far fa-edit"></i>
+                        </div>
+                        <div class="info">
+                            La ciencia española colapsa. ¡Pongan medidas URGENTES para rescatarla!
+                            <div class="comments">
+                                Por favor, firma esta petición para que el Gobierno se entere de que este no es un tema que nos preocupa solo a los investigadores, sino a todos los ciudadanos.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="entry" id="entry1">
+
+                <div class="event-image" style="background-image:url('https://assets.change.org/photos/4/qn/ip/UEQNIpxNJWtfGdQ-800x450-noPad.jpg?1551808334')">
+
+                </div>
+
+                <div class="event-wrap">
+                    <div class="event" id="event1">
+                        <div class="buttons down">
+                            <i class="far fa-edit"></i>
+                        </div>
+                        <div class="info">
+                            Un maltratador no es un buen padre: que no haya derecho a visita o custodia si hay condena
+                            <div class="comments">
+                                Que un hombre condenado por violencia de género no tenga derecho a ver o a estar a solas con un menor. Ayúdanos con tu firma si crees que esto debe ser así YA.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <div class="horizontal-section" style="width: 70vw; float: left">
+
+            <div class="area">
+                <div class="section-title">Peticiones futuras</div>
+                <div class="petitions">
+
+                    <div class="entry petition">
+                        <div class="petition-content">
+                            <div class="title">
+                                ¿Cuánto vale la vida de mi hijo? Generalitat de Catalunya, concededle su medicamento
+                            </div>
+                            <div class="description">
+                                Te pido que firmes esta petición para que mi hijo pueda acceder al único tratamiento posible. Y a cuyo acceso tiene derecho porque se lo han prescrito dos médicos.
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <div class="ui button">
+                                Firmar<br />petición
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="entry petition">
+                        <div class="petition-content">
+                            <div class="title">
+                                NO a los perros encadenados día y noche: Apliquen la Ley de Benestar Animal de Galicia
+                            </div>
+                            <div class="description">
+                                Firma para reclamar la puesta en marcha de un plan para inspeccionar y obligar al cumplimiento de la Ley, para que el maltrato continuado, impropio de una sociedad civilizada, sea de una vez por todas una vergonzosa y triste etapa de la relación del hombre con su ‘mejor amigo’.
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <div class="ui button">
+                                Firmar<br />petición
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="entry petition">
+                        <div class="petition-content">
+                            <div class="title">
+                                Ángel ayudó a morir a su mujer: que la Fiscalía no presente cargos contra él #EUTANASIA
+                            </div>
+                            <div class="description">
+                                Por favor, desde aquí te pido que firmes esta petición. Para que la Fiscalía no presente cargos contra Ángel Hernández.
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <div class="ui button">
+                                Firmar<br />petición
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="entry petition">
+                        <div class="petition-content">
+                            <div class="title">
+                                NO a la derogación de la Prisión Permanente Revisable
+                            </div>
+                            <div class="description">
+                                Te invitamos a que firmes esta petición si igual que nosotros quieres pedir a nuestros representantes políticos que no deroguen la Prisión Permanente Revisable.
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <div class="ui button">
+                                Firmar<br />petición
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="entry petition">
+                        <div class="petition-content">
+                            <div class="title">
+                                Traigamos al pequeño Jonathan a España. Necesita que extraigan la metralla de su cabeza
+                            </div>
+                            <div class="description">
+                                Firma para pedirle al Ministerio de Exteriores y a la Embajada española en Pakistán que concedan a mi primo y a mis tíos el asilo religioso o un visado humanitario para que mi primo Jonathan pueda venir a España. Es su única esperanza para recuperar la movilidad que perdió por culpa de aquella explosión.
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <div class="ui button">
+                                Firmar<br />petición
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ui button" style="width: 10em; font-size: 20px; padding: 1em; margin: 1em auto; margin-bottom: 2em">
+                <div class="load-more">
+                    Mostrar más...
+                </div>
+            </div>
+
+        </div>
+
+        <div class="horizontal-section" style="width:25vw">
+
+            <div class="area">
+                <div class="section-title">Búsqueda</div>
+                <input type="text" class="text-input" spellcheck="false" />
+
+                <div class="search-tags">
+                    <div class="tag">
+                        Sanidad
+                    </div>
+                    <div class="tag">
+                        Animales
+                    </div>
+                    <div class="tag">
+                        Medio ambiente
+                    </div>
+                    <div class="tag">
+                        Educación
+                    </div>
+                    <div class="tag">
+                        Justicia económica
+                    </div>
+                    <div class="tag">
+                        Refugiados
+                    </div>
+                    <div class="tag">
+                        Derechos de las mujeres
+                    </div>
+                    <div class="tag">
+                        LGTB
+                    </div>
+                    <div class="tag">
+                        Alimentación
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
+
+    <script src="./scripts/time-picker.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+    <script>
+
+        var MessageType = {
+            NEUTRAL: 1,
+            NEGATIVE: 2,
+            POSITIVE: 3,
+            assignedClass: {
+                1: "neutral",
+                2: "negative",
+                3: "positive"
+            }
+        };
+
+        /* EVENT LISTENERS */
+
+        $("#modal").click(function(event) {
+            event.stopPropagation();
+        });
+
+        $("#modal").keypress(function(e) {
+            var key = e.keyCode;
+
+            if (key == 13) {
+                // Enter key pressed
+                $("#modal #positive-button").click();
+            }
+
+        });
+
+        var allowScroll = true;
+        var amount = 0;
+
+        /**
+         *  Entries div horizontal scroller
+         */
+        $("#entries-view").mousewheel(function(event, delta) {
+
+            var div = 4;
+            var toScroll = $("#entry1").outerWidth() / div;
+            var origin = this.scrollLeft;
+
+            if ($(this).queue().length > 0) {
+                amount++;
+            }
+
+            console.log(amount);
+
+            $(this).stop().animate({
+                scrollLeft: origin - delta * toScroll * amount
+            }, 200, 'linear', function() {
+
+                a = -1 * amount;
+                d = toScroll * amount;
+                v = d / 200;
+                t = -a / v;
+
+                drag = 1;
+
+                $(this).stop().animate({
+                    scrollLeft: this.scrollLeft - delta * d * v / drag
+                }, t * (2000 / div) * v / drag, 'easeOutCubic');
+
+                amount = 1;
+            });
+
+            event.preventDefault();
+        });
+
+        $("#entries-view").scroll(function(event) {
+
+            var minThreshold = $("#entry1").outerWidth();
+            var maxThreshold = $("#entries-view")[0].scrollWidth - $(window).width() - minThreshold;
+
+            if ($(this).scrollLeft() <= minThreshold) $("#to-beginning-button").removeClass("visible");
+            if ($(this).scrollLeft() > minThreshold) $("#to-beginning-button").addClass("visible");
+
+            if ($(this).scrollLeft() <= maxThreshold) $("#new-entry-button").addClass("visible");
+            if ($(this).scrollLeft() > maxThreshold) $("#new-entry-button").removeClass("visible");
+
+        });
+
+        /* GENERIC UI */
+
+        /**
+         *  Display a modal message with the defined text and actions
+         */
+        function showMessage(
+            type,
+            titleText,
+            msgText,
+            pButtonText,
+            nButtonText,
+            pButtonAction,
+            nButtonAction,
+            pButtonActionParams,
+            nButtonActionParams) {
+
+            var pButton = $("#positive-button");
+            var nButton = $("#negative-button");
+
+            $("body").addClass("no-scroll");
+            $("#modal-curtain").addClass("visible dark");
+            $("#modal-title").html(titleText);
+            $("#modal-message").html(msgText);
+
+            $("#modal").removeClass("neutral");
+            $("#modal").removeClass("negative");
+            $("#modal").removeClass("positive");
+
+            $("#modal").addClass(MessageType.assignedClass[type]);
+
+            pButton.html(pButtonText);
+            pButton.off();
+            pButton.click(function() {
+                pButtonAction(pButtonActionParams);
+                hideMessage();
+            });
+
+            nButton.html(nButtonText);
+            nButton.off();
+            nButton.click(function() {
+                nButtonAction(nButtonActionParams);
+                hideMessage();
+            });
+        }
+
+        /**
+         *  Hide current modal message
+         */
+        function hideMessage() {
+
+            var pButton = $("#positive-button");
+            var nButton = $("#negative-button");
+
+            pButton.click(function() {
+                doNothing();
+            });
+
+            nButton.click(function() {
+                doNothing();
+            });
+
+            $("#modal-curtain").removeClass("visible dark");
+            $("body").removeClass("no-scroll");
+            setTimeout(function() {
+                activeTimePicker.resetView();
+            }, 100);
+        }
+
+        /**
+         *  Fade out and remove specified event view
+         */
+        function removeEventView(eventId) {
+
+            var eventView = $("#" + eventId);
+
+            eventView.addClass("delete-item delayed");
+
+            function hideView() {
+                eventView.addClass("hidden");
+                eventView.css("margin-top", -eventView.outerHeight());
+            }
+
+            setTimeout(hideView, 250);
+
+        }
+
+        /**
+         *  Show time picker
+         */
+        $("#modal").on('click', '#time-input', function(event) {
+            activeTimePicker = new TimePicker($("#modal #time-input"), "00", "00");
+            activeTimePicker.show();
+            event.stopPropagation();
+        });
+
+        $(".curtain").on('click', function(event) {
+            activeTimePicker.hide();
+        });
+
+        $("#modal").on('click', function(event) {
+            activeTimePicker.hide();
+        });
+
+        /**
+         *  Hide time picker
+         */
+        function hideTimePicker() {
+            activeTimePicker.hide();
+        }
+
+        /* UTILITY */
+
+        /**
+         *  Display modal message asking for event removal confirmation
+         */
+        function promptRemove(eventId) {
+
+            var messageTitle = "Are you sure you want to permanently remove this event?";
+            var messageBody = "<div class='event last'>" + $("#" + eventId).html() + "</div>";
+
+            showMessage(
+                MessageType.NEGATIVE,
+                messageTitle,
+                messageBody,
+                "Remove event",
+                "Cancel",
+                removeEventView,
+                doNothing,
+                eventId,
+                null
+            )
+        }
+
+        /**
+         *  Display modal message asking for new event data
+         */
+        function promptAdd(entryId) {
+
+            var messageTitle = "Enter event information";
+            var messageBody = $("#new-event-form").html();
+
+            showMessage(
+                MessageType.POSITIVE,
+                messageTitle,
+                messageBody,
+                "Add event",
+                "Cancel",
+                doNothing,
+                doNothing,
+                null,
+                null
+            )
+
+            setTimeout('$("#modal #time-input").focus(); $("#modal #time-input").click()', 110);
+
+        }
+
+        /**
+         *  Reset entries view scroll back to 0
+         */
+         function toBeginning() {
+
+             var entriesView = $("#entries-view");
+
+             entriesView.clearQueue();
+
+             entriesView.stop().animate({
+                 scrollLeft: 0
+             }, 200, 'easeOutCubic');
+
+         }
+
+        /*
+         *  Does nothing.
+         */
+        function doNothing() {}
+
+        /* FUNCTIONALITY */
+
+        /**
+         *  Remove event with specified id
+         */
+        function removeEvent(id) {
+            //TODO: Implement during server development
+        }
+
+        /* FHIC */
+
+        function goToRegisteredView() {
+            window.location.href = "registered_view.html";
+        }
+
+        function promptRegister() {
+
+            var messageTitle = "Qué es lo que te preocupa?";
+            var messageBody = $("#register-form").html();
+
+            showMessage(
+                MessageType.POSITIVE,
+                messageTitle,
+                messageBody,
+                "Confirmar registro",
+                "Cancelar",
+                goToRegisteredView,
+                doNothing,
+                null,
+                null
+            )
+        }
+
+    </script>
+
+</body>
+</html>

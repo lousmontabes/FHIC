@@ -1,0 +1,735 @@
+// Colors
+$background-color: rgb(240, 240, 240)
+$header-background-color: #254E70
+$header-background-color-bright: lighten($header-background-color, 10%)
+$section-background: white
+$accent-color: #C33C54
+$shadow-color: rgba(0, 0, 0, 0.1)
+$negative-color: #eb4d4b
+$positive-color: $accent-color
+$subtitle-color: #323232
+$header-text-color: white
+$description-color: #b4b4b4
+
+// Fonts
+$title-font: "Karla"
+$ui-font: "Karla"
+$body-font: "Karla"
+
+// Effects
+$soft-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.1)
+$soft-shadow-highlighted: 0px 10px 40px -10px rgba($accent-color, .25)
+$hard-shadow: 0px 4px 8px 2px rgba(0,0,0,0.1)
+$hard-shadow-highlighted: 0px 4px 8px 2px rgba($accent-color, .25)
+
+/* FHIC */
+$title-color: white
+
+/*
+ *  STYLESHEET
+ */
+@font-face
+  font-family: League Spartan
+  src: url("../fonts/LeagueSpartan-Bold.otf") format("opentype")
+
+
+/*
+ *  ANIMATIONS
+ */
+@keyframes slideDownIn
+  0%
+    transform: translateY(-10px)
+  100%
+    transform: translateY(0px)
+
+@keyframes slideUpIn
+  0%
+    transform: translateY(10px)
+  100%
+    transform: translateY(0px)
+
+@keyframes slideDownOut
+  0%
+    transform: translateY(0px)
+  100%
+    transform: translateY(10px)
+
+@keyframes slideUpInLong
+  0%
+    transform: translateY(1000px)
+  100%
+    transform: translateY(300px)
+
+@keyframes slideDownOutLong
+  0%
+    transform: translateY(300px)
+  100%
+    transform: translateY(1000px)
+
+@keyframes slideUpOut
+  0%
+    transform: translateY(0px)
+  100%
+    transform: translateY(-10px)
+
+@keyframes zoomIn
+  0%
+    transform: scale(0.95)
+
+  100%
+    transform: scale(1)
+
+@keyframes zoomOut
+  0%
+    transform: scale(1)
+
+  100%
+    transform: scale(0.95)
+
+@keyframes fadeIn
+  0%
+    opacity: 0
+
+  100%
+    opacity: 1
+
+@keyframes fadeOut
+  0%
+    opacity: 1
+
+  100%
+    opacity: 0
+
+@keyframes deleteItem
+  0%
+    transform: scale(1)
+    opacity: 1
+
+  100%
+    transform: scale(0.5)
+    opacity: 0
+
+body
+  background: $background-color
+  margin: 0
+  font-family: $body-font
+  color: $subtitle-color
+
+::selection
+  background: rgba($accent-color, .2)
+
+.header
+  color: $subtitle-color
+  font-size: 18px
+  background: transparent
+  .calendar-info
+    margin-left: .5em
+    display: inline-block
+    border-top: 2px solid transparent
+    font-family: $ui-font
+    .author-username
+      display: inline-block
+      transition: .1s
+      cursor: pointer
+      color: white
+      opacity: .5
+      &:hover
+        //opacity: 1
+    .calendar-title
+      display: inline-block
+      transition: .1s
+      cursor: pointer
+      color: white
+      border-bottom: 2px solid transparent
+      &:hover
+        //border-bottom: 2px solid white
+  .title
+    margin: 2em 4em
+    display: inline-flex
+    align-items: center
+    transition: .2s
+    cursor: pointer
+    padding-right: 1em
+    border-radius: 4px
+    &:hover
+      background: rgba(255, 255, 255, .1)
+      .avatar
+        transform: scale(1.05)
+
+.avatar
+  cursor: pointer
+  transition: .2s
+  background: $accent-color
+  background-size: contain
+  height: 3.5em
+  width: 3.5em
+  display: inline-block
+  margin: .5em
+  border-radius: 3px
+  box-shadow: $hard-shadow
+
+.area
+  padding: 0 3em
+  min-width: 40em
+  margin: 0 auto
+  h1
+    margin: 0
+    font-family: $title-font
+  h2
+    margin: 0
+    font-family: $ui-font
+    color: $accent-color
+    margin-bottom: 0.5em
+    font-weight: normal
+
+.section
+  padding: 2em
+  &.title
+    padding: 0
+    margin: 2em
+    transition: 0.1s
+    font-size: 48px
+    color: $accent-color
+
+.entries
+  white-space: nowrap
+  overflow-x: hidden
+
+.entry
+  display: inline-block
+  transition: 0.2s
+  margin: 0 1em
+  vertical-align: top
+  margin-bottom: 2em
+  background: $section-background
+  border-radius: 0.3em
+  box-shadow: $soft-shadow
+  width: 47.5em
+  padding-bottom: 0
+  font-size: 14px
+  white-space: normal
+  cursor: pointer
+  &.today
+    border: 1px solid lightgrey
+  &:hover
+    transform: translateY(-1px)
+    box-shadow: $soft-shadow-highlighted
+    .event-image
+      background-color: $accent-color
+    .event
+      .info
+        color: $accent-color
+      .buttons
+        opacity: 1
+        transform: translateY(0)
+    .add-event
+      opacity: 1
+      color: $accent-color
+  &.empty
+    background: transparent
+    border: 1px dashed lightgrey
+    .entry-header
+      h2
+        color: lightgrey
+    .add-event
+      color: lightgrey
+    &:hover
+      background: $section-background
+      border: 1px dashed transparent
+      .entry-header
+        h2
+          color: $accent-color
+      .add-event
+        color: rgba($accent-color, .8)
+
+.entry-header
+  padding: 2em
+  padding-bottom: 0
+
+.event
+  transition: margin-top .2s, opacity .05s
+  font-size: 24px
+  padding: 1em 0
+  border-bottom: 1px solid rgba(0, 0, 0, .05)
+  color: $subtitle-color
+  .buttons
+    float: right
+    opacity: 0
+    transition: opacity .2s
+    cursor: pointer
+  &.last
+    border-bottom: none
+    padding-bottom: 0
+
+.comments
+  color: $description-color
+  font-size: 16px
+  font-weight: normal
+  margin-top: 0.5em
+  overflow-wrap: break-word
+  max-height: 3em
+  overflow: hidden
+  text-overflow: ellipsis
+
+.entry
+  .event
+    height: 4.4em
+    i
+      transition: .1s
+      padding: .1em
+      opacity: .9
+      &:hover
+        color: $accent-color
+      &.caution
+        &:hover
+          color: $negative-color
+
+  .add-event
+    transition: .1s
+    padding: 1.5em 0 2em 0
+    font-size: 18px
+    font-family: $ui-font
+    color: $accent-color
+    opacity: .75
+    i
+      margin-right: .5em
+
+.event-wrap
+  padding: 0 2em
+  &.clickable
+    cursor: pointer
+  &.slide-up-in .buttons
+    animation: slideUpIn .2s linear
+  &.slide-down-in .buttons
+    animation: slideDownIn .2s linear
+  &.slide-up-out .buttons
+    animation: slideUpOut .2s linear
+  &.slide-down-out .buttons
+    animation: slideDownOut .2s linear
+
+.new-entry
+  cursor: pointer
+  background: transparent
+  border-radius: .25em
+  text-align: center
+  box-shadow: none
+  color: grey
+  margin-bottom: 3em
+  font-family: $ui-font
+  font-size: 18px
+  overflow: hidden
+  height: 100px
+  padding: 0
+  .new-entry-view
+    height: 100px
+    transition: .2s
+  &:hover
+    color: $header-background-color
+
+.floating-menu
+  width: 100vw
+  position: fixed
+  bottom: 0
+  left: 0
+  .button
+    transition: .2s
+    background: $accent-color
+    display: inline-block
+    padding: 1.5em 2em
+    margin: 1em
+    border-radius: 3em
+    box-shadow: 0px 4px 8px 2px rgba(0,0,0,0.1)
+    color: white
+    visibility: hidden
+    opacity: 0
+    transform: scale(.95)
+    i
+      margin-right: 1em
+    &.right
+      float: right
+    &.visible
+      transform: scale(1)
+      visibility: visible
+      opacity: 1
+
+.flying
+  position: fixed
+  width: 100vw
+  height: 100vh
+  display: flex
+  z-index: 999
+  opacity: 0
+  transition: .2s
+
+.centered
+  align-self: center
+  margin: 0 auto
+
+.modal
+  background: $section-background
+  min-width: 10em
+  min-height: 5em
+  border-radius: 0.25em
+  box-shadow: $soft-shadow
+  overflow: hidden
+  font-family: $ui-font
+  font-size: 18px
+  padding: 1.5em 2em
+  input, textarea
+    width: 94%
+    display: block
+    margin: 0
+  .section
+    margin: 0
+    padding: .25em 0
+    &.message
+      padding: .5em 0
+      padding-bottom: 1.5em
+  .button
+    padding: 0.5em 1em
+    margin-right: 0.5em
+    display: inline-block
+    border-radius: 0.25em
+  .event
+    font-family: $body-font
+  &.wide
+    width: 55em
+  &.fixed-width
+    width: 40em
+  &.neutral
+    .button.confirm
+      background: $accent-color
+      color: white
+  &.negative
+    .button.confirm
+      background: $negative-color
+      color: white
+  &.positive
+    .button.confirm
+      background: $positive-color
+      color: white
+
+.button
+  transition: 0.1s
+  cursor: pointer
+  border: 1px solid transparent
+  &:hover
+    transform: translateY(-3px)
+    opacity: .9
+  &:active
+    transition: .05s
+    transform: scale(0.95)
+  &.cancel
+    background: lightgrey
+
+.curtain
+  visibility: hidden
+  .flying
+    animation: fadeOut .1s ease-in-out
+    animation-fill-mode: forwards
+  .modal
+    animation: zoomOut .1s ease-in
+    animation-fill-mode: forwards
+  &.visible
+    visibility: visible
+    .flying
+      animation: fadeIn .1s ease-in-out
+      animation-fill-mode: forwards
+    .modal
+      animation: zoomIn .1s ease-out
+  &.dark
+    .flying
+      background: rgba(0, 0, 0, .5)
+
+.curtain#preview-curtain
+  visibility: hidden
+  .flying
+    animation: slideDownOutLong .2s ease-in
+    animation-fill-mode: forwards
+  .modal
+    animation: zoomOut .1s ease-in
+    animation-fill-mode: forwards
+  &.visible
+    visibility: visible
+    .flying
+      animation: fadeIn .1s ease-in-out
+      animation-fill-mode: forwards
+    .modal
+      animation: slideUpInLong .2s ease-out
+  &.dark
+    .flying
+      background: rgba(0, 0, 0, .5)
+
+.fade-in
+  animation: fadeIn .1s ease-in-out
+  animation-fill-mode: forwards
+
+.fade-out
+  animation: fadeOut .1s ease-in-out
+  animation-fill-mode: forwards
+
+.zoom-in
+  animation: zoomIn .1s ease-in-out
+  animation-fill-mode: forwards
+
+.zoom-out
+  animation: zoomOut .1s ease-in-out
+  animation-fill-mode: forwards
+
+.delete-item
+  animation: deleteItem .1s ease-in-out
+  animation-fill-mode: forwards
+
+.zoom-fade-in
+  animation: zoomIn .1s ease-in-out, fadeIn .1s ease-in-out
+  animation-fill-mode: forwards
+
+.zoom-fade-out
+  animation: zoomOut .1s ease-in-out, fadeOut .1s ease-in-out
+  animation-fill-mode: forwards
+
+.zoom-fade-in-slow
+  animation: zoomIn .3s ease-out, fadeIn .3s ease-out
+  animation-fill-mode: forwards
+
+.zoom-fade-out-slow
+  animation: zoomOut .3s ease-out, fadeOut .3s ease-out
+  animation-fill-mode: forwards
+
+.delayed
+  animation-delay: .15s
+  transition-delay: .15s
+
+.hidden
+  visibility: hidden
+
+.template
+  display: none
+
+.hour-selection
+  margin: .5em 0
+
+.hour-bubble
+  display: inline-block
+  font-size: 14px
+  border: 1px solid lightgrey
+  padding: .5em
+  &:hover
+    background: lightgrey
+
+input[type="time"]::-webkit-clear-button
+  display: none
+
+.no-scroll
+  overflow: hidden
+
+.bubble
+  opacity: 0
+  background: $accent-color
+  color: white
+  position: absolute
+  box-shadow: $hard-shadow
+  text-align: center
+  top: 45vh
+  left: 45vw
+  border-radius: 4px
+  font-family: $ui-font
+  z-index: 9999
+  visibility: hidden
+  color: rgba(white, .9)
+  .option
+    transition: .1s
+    background: $accent-color
+    padding: .5em 2em
+    cursor: pointer
+    &:hover
+      background: lighten($accent-color, 10%)
+    &.selected
+      background: lighten($accent-color, 20%)
+      color: white
+  .column
+    transition: .2s
+    height: 1em
+    overflow-y: scroll
+    display: inline-block
+    &.left
+      border-right: 1px solid rgba(255, 255, 255, 0.1)
+    &::-webkit-scrollbar
+      display: none
+    .spacer
+      height: 44%
+  &:after
+    content: ''
+    position: absolute
+    top: 0
+    left: 50%
+    width: 0
+    height: 0
+    border: 7px solid transparent
+    border-bottom-color: $accent-color
+    border-top: 0
+    margin-left: -7px
+    margin-top: -7px
+  &.visible
+    visibility: visible
+    .column
+      height: 14em
+
+.disclaimer
+  display: inline
+  opacity: .5
+
+/* FHIC */
+
+.page-title
+  color: $accent-color
+
+.event-image
+  transition: .2s
+  height: 20em
+  background-position: center
+  background-size: cover
+  background-color: white
+  background-blend-mode: multiply
+
+.petition
+  padding: 1em
+  font-size: 18px
+  color: $description-color
+  margin-bottom: 1px
+  border-bottom: 1px solid rgba($accent-color, .1)
+  border-radius: 0
+  width: 100%
+  .petition-content
+    display: inline-block
+    width: 85%
+    float: left
+  .title
+    font-size: 20px
+    color: $subtitle-color
+    width: 100%
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+  .description
+    width: 100%
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+  .button
+    opacity: 0
+    float: right
+    display: inline-block
+    font-size: 14px
+    width: 10%
+    padding: .5em .75em
+    border-radius: 4px
+    opacity: 1
+    background: transparent
+    color: $accent-color
+    transition: .1s
+    height: 2.5em
+  &:hover
+    .button
+      opacity: 1
+      background: $accent-color
+      color: white
+      box-shadow: $hard-shadow
+
+.section-title
+  margin: 1em
+  font-size: 24px
+
+.text-input
+  border: 1px solid lightgrey
+  font-size: 24px
+  font-family: "Karla"
+  padding: .5em
+  width: 65%
+  border-radius: 3px
+  margin: 0 1em
+
+.horizontal-section
+  overflow: hidden
+
+.search-tags
+  width: 65%
+  overflow: hidden
+  padding: 1em
+
+.tag
+  display: inline-block
+  padding: .5em
+  cursor: pointer
+  &:hover
+    color: $accent-color
+
+.right
+  position: absolute
+  right: 0
+  padding: 3em
+
+.clickable-text
+  color: black
+  border-bottom: 1px solid black
+  &:hover
+    color: $accent-color
+    border-bottom: 1px solid $accent-color
+
+.register-login
+  display: inline-block
+
+.create-petition
+  display: inline-block
+  margin: 0 1em
+
+.button.ui
+  color: $accent-color
+  padding: .5em 1em
+  border-radius: 3px
+  border: 1px solid $accent-color
+  text-align: center
+  &:hover
+    background: $accent-color
+    color: white
+  &.inverted
+    color: white
+    border: 1px solid white
+    display: inline-block
+    &.solid
+      background: white
+      color: $accent-color
+
+.img-placeholder
+  width: 100%
+  height: 6em
+  border: 2px dashed lightgrey
+  border-radius: 3px
+  margin-top: .5em
+
+.notification
+  position: absolute
+  top: 0
+  width: 100vw
+  background: $accent-color
+  color: white
+  font-size: 28px
+  padding: 2em
+
+.petition-title
+  font-size: 64px
+  font-weight: bold
+  color: $accent-color
+
+.petition-image
+  background-image: url(https://assets.change.org/photos/1/gp/nx/hMGpNxbvGvvyJlu-800x450-noPad.jpg?1553867579)
+  width: 40em
+  height: 20em
+  margin: 3em 0px
+  background-size: cover
+  background-position: center
+
+.petition-description
+  font-size: 24px
+  width: 30em
+  text-align: justify
