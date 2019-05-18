@@ -602,6 +602,9 @@
                 nButtonAction(nButtonActionParams);
                 hideMessage();
             });
+
+            modalActive = true;
+
         }
 
         /**
@@ -625,6 +628,9 @@
             setTimeout(function() {
                 activeTimePicker.resetView();
             }, 100);
+
+            modalActive = false;
+
         }
 
         /**
@@ -892,10 +898,13 @@
 
         // Mouse tracking
 
+        var modalActive = false;
         var positions = [];
+        var positionsModal = [];
 
         $(document).mousemove(function(e) {
-            positions.push([e.pageX, e.pageY]);
+            if (!modalActive) positions.push([e.pageX, e.pageY]);
+            else positionsModal.push([e.pageX, e.pageY]);
         })
 
         function saveResults() {
@@ -906,6 +915,15 @@
             });
 
             download(data, "mouse_data.txt", "text/plain");
+
+            data = ""
+
+            positionsModal.forEach(function(p) {
+                data += p[0] + " " + p[1] + "\n";
+            });
+
+            download(data, "mouse_data_modal.txt", "text/plain");
+
         }
 
         function download(data, filename, type) {
