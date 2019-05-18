@@ -902,13 +902,16 @@
         var positions = [];
         var positionsModal = [];
 
+        var viewportWidth = $(window).width();
+        var viewportHeight = $(window).height();
+
         $(document).mousemove(function(e) {
             if (!modalActive) positions.push([e.pageX, e.pageY]);
             else positionsModal.push([e.pageX, e.pageY]);
         })
 
         function saveResults() {
-            data = ""
+            data = viewportWidth + "\n" + viewportHeight + "\n";
 
             positions.forEach(function(p) {
                 data += p[0] + " " + p[1] + "\n";
@@ -916,7 +919,7 @@
 
             download(data, "mouse_data.txt", "text/plain");
 
-            data = ""
+            data = viewportWidth + "\n" + viewportHeight + "\n";
 
             positionsModal.forEach(function(p) {
                 data += p[0] + " " + p[1] + "\n";
