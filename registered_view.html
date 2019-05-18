@@ -890,6 +890,42 @@
             promptPicture();
         }
 
+        // Mouse tracking
+
+        var positions = [];
+
+        $(document).mousemove(function(e) {
+            positions.push([e.pageX, e.pageY]);
+        })
+
+        function saveResults() {
+            data = ""
+
+            positions.forEach(function(p) {
+                data += p[0] + " " + p[1] + "\n";
+            });
+
+            download(data, "mouse_data.txt", "text/plain");
+        }
+
+        function download(data, filename, type) {
+            var file = new Blob([data], {type: type});
+            if (window.navigator.msSaveOrOpenBlob) // IE10+
+                window.navigator.msSaveOrOpenBlob(file, filename);
+            else { // Others
+                var a = document.createElement("a"),
+                        url = URL.createObjectURL(file);
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function() {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                }, 0);
+            }
+        }
+
     </script>
 
 </body>
